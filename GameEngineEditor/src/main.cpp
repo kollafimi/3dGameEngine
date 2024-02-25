@@ -1,11 +1,25 @@
 #include <iostream>
-#include <GameEngineCore/Utils/test.hpp>
+#include <memory>
+#include <GameEngineCore/Application.hpp>
+
+class MyApp : public GameEngine::Application
+{
+	virtual void on_update() override
+	{
+		std::cout << "Update frame: " << frame++ << std::endl;
+	}
+
+	int frame = 0;
+};
+
 
 int main()
 {
-	std::cout << "Hello from Game Engine Editor" << std::endl;
+	auto myApp = std::make_unique<MyApp>();
 
-	GameEngine::sayHello();
+	int returnCode = myApp->start(1024, 768, "My chichi App");
 
 	std::cin.get();
+
+	return returnCode;
 }
